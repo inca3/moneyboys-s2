@@ -9,7 +9,7 @@
 	let isLoading = true;
 
 	onMount(() => {
-		const traits = ['background', 'face', 'shirt', 'eyes', 'mouth', 'head', 'necklace'];
+		const traits = ['background', 'face', 'shirt', 'eyes', 'head', 'mouth', 'necklace'];
 		const sortedTraits = traits.map((trait) =>
 			$boy.rank_explain.filter((item) => item.attribute == trait).at(0)
 		);
