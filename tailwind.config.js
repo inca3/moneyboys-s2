@@ -10,6 +10,10 @@ export default {
 			},
 			fontFamily: {
 				jakarta: 'Plus Jakarta Sans, sans-serif'
+			},
+			container: {
+				padding: '1rem',
+				center: true
 			}
 		}
 	},

@@ -1,4 +1,11 @@
 <script>
+	import { moneyboys, search, boy } from '../stores'
+	import {goto} from '$app/navigation'
+
+	const handleSubmit = () => {
+		boy.set($moneyboys.filter(item => item.name.endsWith(`#${$search}`)).at(0))
+		goto(`boy/${$boy.crawl_id}`)
+	}
 </script>
 
 <svelte:head>
@@ -6,13 +13,13 @@
 	<meta name="description" content="Svelte demo app" />
 </svelte:head>
 
-<main class="w-[100dvw] h-[100dvh] flex justify-center items-center relative">
+<main class="container w-[100dvw] h-[100dvh] flex justify-center items-center relative">
 	<div>
-	  <h1 class="font-bold text-[128px]">moneyboys II</h1>
-	  <h2 class="text-lg">
+	  <h1 class="font-bold text-4xl md:text-8xl lg:text-[128px]">moneyboys II</h1>
+	  <h2 class="text-lg mt-8">
 		enter your boys ID and see what your season II boy looks like.
 	  </h2>
-	  <form class="flex gap-2 mt-16">
+	  <form class="flex gap-2 mt-16" on:submit|preventDefault={handleSubmit}>
 		<input
 		  pattern="\d*"
 		  placeholder="eg. 2342"
@@ -20,6 +27,7 @@
 		  min={1}
 		  max={4443}
 		  maxLength={4}
+		  on:input={(e) => search.set(e.target.value)}
 		/>
 		<button class="font-bold px-4 py-2 rounded bg-gradient-to-br from-main-purple via-main-pink  to-main-purple">
 		  show me!
