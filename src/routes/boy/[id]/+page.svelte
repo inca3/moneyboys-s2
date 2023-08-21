@@ -9,22 +9,13 @@
 	let isLoading = true;
 
 	onMount(() => {
-		const traits = ['background', 'face', 'shirt', 'head', 'mouth', 'eyes', 'necklace'];
+		const traits = ['background', 'face', 'shirt', 'eyes', 'mouth', 'head', 'necklace'];
 		const sortedTraits = traits.map((trait) =>
 			$boy.rank_explain.filter((item) => item.attribute == trait).at(0)
 		);
 
 		const createImage = async () => {
-			const src = await mergeImages(
-				[
-					`/traits/${sortedTraits[0].attribute}/${sortedTraits[0].value}.png`,
-					`/traits/${sortedTraits[1].attribute}/${sortedTraits[1].value}.png`,
-					`/traits/${sortedTraits[2].attribute}/${sortedTraits[2].value}.png`,
-					`/traits/${sortedTraits[3].attribute}/${sortedTraits[3].value}.png`,
-					`/traits/${sortedTraits[4].attribute}/${sortedTraits[4].value}.png`,
-					`/traits/${sortedTraits[5].attribute}/${sortedTraits[5].value}.png`,
-					`/traits/${sortedTraits[6].attribute}/${sortedTraits[6].value}.png`
-				],
+			const src = await mergeImages(sortedTraits.map(trait => `/traits/${trait.attribute}/${trait.value}.png`),
 				{
 					crossOrigin: 'anonymous'
 				}
