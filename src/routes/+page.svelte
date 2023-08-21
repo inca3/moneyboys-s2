@@ -10,7 +10,7 @@
 
 <svelte:head>
 	<title>moneyboys II</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="moneyboys s2 builder" />
 </svelte:head>
 
 <main class="container w-[100dvw] h-[100dvh] flex justify-center items-center relative">

@@ -35,7 +35,7 @@
 	<section class="container w-[100dvw] h-[100dvh] flex flex-col items-center justify-center">
 		<h1 class="text-2xl font-bold mb-8 lg:mb-16">moneyboy {$boy.name.split(' ').at(3)}</h1>
 		<div class="flex flex-col lg:flex-row items-center justify-center px-4">
-			<a href={generatedImage} download={$boy.name}>
+			<a href={generatedImage} download={`moneyboy ${$boy.name.split(' ').at(3)}`}>
 				<img src={generatedImage} alt={$boy.name} class="lg:max-w-md" />
 				<p class="text-center opacity-80 mt-4">(click/tap on image to download)</p>
 			</a>
