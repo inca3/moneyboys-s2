@@ -10,7 +10,7 @@
 
 	onMount(() => {
 		let traits;
-		if ($boy.rank_explain.filter(obj => obj.value.includes('darkmask')).length > 0) {
+		if ($boy.rank_explain.filter(obj => obj.value.includes('darkmask')).length > 0 || $boy.rank_explain.filter(obj => obj.value.includes('zigmouth')).length > 0) {
 			traits = ['background', 'face', 'shirt', 'eyes', 'mouth', 'head', 'necklace'];
 		} else {traits = ['background', 'face', 'shirt', 'eyes', 'head', 'mouth', 'necklace'];}
 		let sortedTraits = traits.map((trait) =>
