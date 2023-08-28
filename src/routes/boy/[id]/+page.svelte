@@ -9,8 +9,11 @@
 	let isLoading = true;
 
 	onMount(() => {
-		const traits = ['background', 'face', 'shirt', 'eyes', 'head', 'mouth', 'necklace'];
-		const sortedTraits = traits.map((trait) =>
+		let traits;
+		if ($boy.rank_explain.filter(obj => obj.value.includes('darkmask')).length > 0) {
+			traits = ['background', 'face', 'shirt', 'eyes', 'mouth', 'head', 'necklace'];
+		} else {traits = ['background', 'face', 'shirt', 'eyes', 'head', 'mouth', 'necklace'];}
+		let sortedTraits = traits.map((trait) =>
 			$boy.rank_explain.filter((item) => item.attribute == trait).at(0)
 		);
 
