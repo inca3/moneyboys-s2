@@ -1,13 +1,22 @@
 <script>
 	import { onMount } from 'svelte';
 	import { boy } from '../../../stores';
+	import { gmSelected } from '../../../stores';
 	import Loading from '../../../lib/Loading.svelte';
 	import mergeImages from 'merge-images';
 	import Back from '../../../lib/assets/back.png';
+	import {goto} from '$app/navigation'
 
 	let generatedImage;
 	let isLoading = true;
 
+	const handleBack = () => {
+		goto(`/`)
+		gmSelected.set(false)
+	}
+
+	const colors = ['light', 'purple', 'pink', 'lavender', 'yellow', 'teal', 'orange', 'blue', 'green', 'white']
+	
 	onMount(() => {
 		let traits;
 		if ($boy.rank_explain.filter(obj => obj.value.includes('darkmask')).length > 0 || $boy.rank_explain.filter(obj => obj.value.includes('zigmouth')).length > 0) {
@@ -17,8 +26,19 @@
 			$boy.rank_explain.filter((item) => item.attribute == trait).at(0)
 		);
 
+		const bg = colors.indexOf(sortedTraits.at(0).value)
+		const face = colors.indexOf(sortedTraits.at(1).value)
+
+		colors.splice(bg,1)
+		colors.splice(face-1,1)
+		const randomColor = colors[Math.floor(Math.random() * colors.length)]
+
 		const createImage = async () => {
-			const src = await mergeImages(sortedTraits.map(trait => `/traits/${trait.attribute}/${trait.value}.png`),
+			let gm = []
+			if ($gmSelected) {
+				gm = [`/traits/gm/cup/${randomColor}.png`, `/traits/gm/font/${sortedTraits.at(1).value}.png`, `/traits/gm/hand/${sortedTraits.at(1).value}.png`, `/traits/gm/outline.png`]
+			}
+			const src = await mergeImages(sortedTraits.map(trait => `/traits/${trait.attribute}/${trait.value}.png`).concat(gm),
 				{
 					crossOrigin: 'anonymous'
 				}
@@ -43,8 +63,8 @@
 				<p class="text-center opacity-80 mt-4">(click/tap on image to download)</p>
 			</a>
 		</div>
-		<a href="/" class="my-20 lg:absolute lg:top-10 lg:left-10 flex items-center justify-center w-12 h-12 p-2 bg-white rounded-full">
-        <img src={Back} alt="back" class="mr-1">
-		</a>
+		<button on:click={handleBack} class="my-20 lg:absolute lg:top-10 lg:left-10 flex items-center justify-center w-12 h-12 p-2 bg-white rounded-full">
+        <img src={Back} alt="back" class="mr-1" >
+		</button>
 	</section>
 {/if}

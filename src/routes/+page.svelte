@@ -1,8 +1,9 @@
 <script>
-	import { moneyboys, search, boy } from '../stores'
+	import { moneyboys, search, boy, gmSelected } from '../stores'
 	import {goto} from '$app/navigation'
 
 	const handleSubmit = () => {
+		if ($search == '') return
 		boy.set($moneyboys.filter(item => item.name.endsWith(`#${$search}`)).at(0))
 		goto(`boy/${$boy.crawl_id}`)
 	}
@@ -33,5 +34,9 @@
 		  show me!
 		</button>
 	  </form>
+	  <div class="flex items-center justfiy-center gap-1 mt-4">
+		<input type="checkbox" name="gm" id="gm" class="form-checkbox w-10 h-10 rounded-full text-main-purple" bind:checked={$gmSelected} >
+		<label for="gm" class="font-bold text-lg">gm?</label>
+		</div>
 	</div>
   </main>
