@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 	import { boy } from '../../../stores';
-	import { gmSelected } from '../../../stores';
+	import { gmSelected, gmSollessSelected } from '../../../stores';
 	import Loading from '../../../lib/Loading.svelte';
 	import mergeImages from 'merge-images';
 	import Back from '../../../lib/assets/back.png';
@@ -13,6 +13,7 @@
 	const handleBack = () => {
 		goto(`/`)
 		gmSelected.set(false)
+		gmSollessSelected.set(false)
 	}
 
 	const colors = ['light', 'purple', 'pink', 'lavender', 'yellow', 'teal', 'orange', 'blue', 'green', 'white']
@@ -26,6 +27,7 @@
 			$boy.rank_explain.filter((item) => item.attribute == trait).at(0)
 		);
 
+		
 		const bg = colors.indexOf(sortedTraits.at(0).value)
 		const face = colors.indexOf(sortedTraits.at(1).value)
 
@@ -37,6 +39,9 @@
 			let gm = []
 			if ($gmSelected) {
 				gm = [`/traits/gm/cup/${randomColor}.png`, `/traits/gm/font/${sortedTraits.at(1).value}.png`, `/traits/gm/hand/${sortedTraits.at(1).value}.png`, `/traits/gm/outline.png`]
+			}
+			else if ($gmSollessSelected) {
+				gm = [`/traits/gmsollessman/cup/${randomColor}.png`, `/traits/gmsollessman/hand/${sortedTraits.at(1).value}.png`, `/traits/gmsollessman/outline.png`]
 			}
 			const src = await mergeImages(sortedTraits.map(trait => `/traits/${trait.attribute}/${trait.value}.png`).concat(gm),
 				{
